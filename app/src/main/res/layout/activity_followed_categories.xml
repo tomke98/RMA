@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Praćene kategorije (Story 4.1): a fixed 10-row checklist, one CheckBox per
+  data.model.Category member (enum-declaration order), each toggle persisting
+  immediately via FollowedCategoriesStore. No save button, no RecyclerView —
+  a static scrollable checklist is enough for a fixed 10-row list.
+
+  IDs read by FollowedCategoriesActivity:
+    - toolbar
+    - categoriesContainer (checkboxes are added programmatically, in enum order)
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:navigationContentDescription="@string/natrag"
+        app:title="@string/pracene_kategorije" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/categoriesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp" />
+
+    </ScrollView>
+
+</LinearLayout>

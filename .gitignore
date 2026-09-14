@@ -1,0 +1,40 @@
+# Built output
+*.apk
+*.aar
+*.ap_
+*.dex
+*.class
+/build
+/app/build
+bin/
+gen/
+out/
+release/
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+local.properties
+
+# Android Studio / IntelliJ
+/.idea
+*.iml
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Firebase — never commit real credentials
+google-services.json
+/app/google-services.json
+.firebase/
+firebase-debug.log
+
+# Keystore
+*.jks
+*.keystore
+
+# Misc
+*.log

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Single Material 3 light theme. No values-night: a system-dark device still
+         renders this, and App also forces MODE_NIGHT_NO. -->
+    <style name="Theme.LostAndFound" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
+
+        <item name="android:colorBackground">@color/surface_base</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/ink_primary</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/ink_secondary</item>
+        <item name="colorOutline">@color/border_hairline</item>
+
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+
+        <item name="android:statusBarColor">@color/surface_base</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/surface_base</item>
+        <!-- targetSdk 36 (Android 15+) enforces edge-to-edge by default, drawing
+             content under the status bar; no screen in this app applies window-
+             inset padding, so the Board toolbar's overflow icon renders under
+             (and loses touches to) the status bar. Opt out rather than add inset
+             handling to every screen. API 35+ only attribute; harmless below it. -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.LostAndFound.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.LostAndFound.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.LostAndFound.Large</item>
+    </style>
+
+    <!-- Shape scale: 8 dp fields, 12 dp cards/dialogs, 28 dp buttons/FAB (DESIGN.md). -->
+    <style name="ShapeAppearance.LostAndFound.Small" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.LostAndFound.Medium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.LostAndFound.Large" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
+</resources>

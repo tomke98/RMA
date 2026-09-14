@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Location picker (Story 2.1, DESIGN.md). Full-bleed map with a static, centre-locked
+  pin overlay — the user repositions it by panning the map underneath, not by
+  dragging the pin (see the frozen "Pin model" decision in the spec). A bottom card
+  holds the optional label field and the confirm button; the "Trenutna lokacija"
+  chip and the denial rationale line float above the card.
+
+  IDs read by LocationPickerActivity (via findViewById / findFragmentById):
+    - map               SupportMapFragment, read via findFragmentById + getMapAsync
+    - rationaleText     "Bez lokacije..." line; gone until permission/fix is denied
+    - currentLocationButton  "Trenutna lokacija" chip; re-requests permission / fix
+    - labelInput        optional one-line location label
+    - confirmButton     "Postavi lokaciju"; reads the map centre at tap time
+
+  Structural-only ids (not read from code): mapContainer, pin, labelLayout.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <FrameLayout
+        android:id="@+id/mapContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <!-- Non-interactive: the map itself receives all touch input. The pin is fixed
+         at the centre of mapContainer, so it always overlays whatever the camera
+         target is. Purely decorative (importantForAccessibility="no"), so no
+         contentDescription is set — one would be unreachable by any accessibility
+         service anyway since the view is excluded from the accessibility tree. -->
+    <ImageView
+        android:id="@+id/pin"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:importantForAccessibility="no"
+        app:srcCompat="@drawable/ic_location_pin" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/currentLocationButton"
+        style="@style/Widget.Material3.Chip.Assist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_margin="16dp"
+        android:minHeight="48dp"
+        android:text="@string/lokacija_trenutna"
+        app:chipIcon="@drawable/ic_location_pin" />
+
+    <TextView
+        android:id="@+id/rationaleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/surface"
+        android:padding="12dp"
+        android:text="@string/lokacija_bez_dozvole"
+        android:textAppearance="?attr/textAppearanceBodySmall"
+        android:textColor="@color/ink_secondary"
+        android:visibility="gone" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/screenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:accessibilityHeading="true"
+                android:text="@string/lokacija_naslov"
+                tools:targetApi="28"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="@color/ink_primary" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/labelLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="@string/lokacija_oznaka_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/labelInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/confirmButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/lokacija_postavi" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

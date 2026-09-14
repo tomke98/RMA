@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Wordmark. Shown only on auth screens. -->
+    <string name="app_name">lost&amp;Found</string>
+
+    <!-- Authoritative auth microcopy (epic-1-context.md). Croatian, formal vi. -->
+    <string name="prijava">Prijava</string>
+    <string name="netocna_e_posta_ili_lozinka">Netočna e-pošta ili lozinka.</string>
+    <string name="otvori_racun">Otvori račun</string>
+    <string name="korisnicko_ime_zauzeto">Korisničko ime je zauzeto.</string>
+    <string name="lozinka_prekratka">Lozinka mora imati najmanje 6 znakova.</string>
+    <string name="odjava">Odjava</string>
+
+    <!-- Sign-in screen (Story 1.3). Croatian, formal vi. -->
+    <string name="prijava_podnaslov">Izgubljeno i pronađeno — Osijek</string>
+    <string name="prijava_e_posta">E-pošta</string>
+    <string name="prijava_lozinka">Lozinka</string>
+    <string name="prijava_napomena">Prijavom pristajete na to da aplikacija samo posreduje kontakt i ne provjerava vlasništvo.</string>
+    <string name="prijava_slanje">Prijava u tijeku.</string>
+
+    <!-- Sign-out confirm dialog (Story 1.3). Title reuses `odjava`. -->
+    <string name="odjava_potvrda_tekst">Želite li se odjaviti?</string>
+    <string name="odustani">Odustani</string>
+
+    <!-- Biometric unlock (Story 1.4). -->
+    <string name="biometrija_naslov">Otključavanje aplikacije</string>
+    <string name="biometrija_podnaslov">Potvrdite identitet za nastavak</string>
+    <string name="biometrija_pokusaj_ponovno">Pokušajte ponovno</string>
+    <string name="biometrija_trajno_zakljucano">Biometrijska prijava je zaključana. Koristite lozinku.</string>
+    <string name="koristi_lozinku">Koristi lozinku</string>
+
+    <!-- Shared error microcopy. -->
+    <string name="radnja_zahtijeva_internet">Radnja zahtijeva internetsku vezu.</string>
+    <string name="opca_greska">Nešto je pošlo po zlu. Pokušajte ponovno.</string>
+
+    <!-- Registration form (Story 1.2). Croatian, formal vi. -->
+    <string name="registracija_korisnicko_ime">Korisničko ime</string>
+    <string name="registracija_e_posta">E-pošta</string>
+    <string name="registracija_lozinka">Lozinka</string>
+    <string name="registracija_telefon">Telefon</string>
+    <string name="registracija_polje_obavezno">Ovo polje je obavezno.</string>
+    <string name="registracija_neispravna_e_posta">Unesite ispravnu e-poštu.</string>
+    <string name="registracija_e_posta_zauzeta">E-pošta je već registrirana.</string>
+    <string name="registracija_neispravno_korisnicko_ime">Korisničko ime: 3–20 znakova — slova, brojke, . _ -</string>
+    <string name="registracija_djelomicno">Račun je djelomično izrađen. Pokušajte ponovno kasnije.</string>
+    <string name="registracija_slanje">Izrada računa u tijeku.</string>
+
+    <!-- Board. -->
+    <string name="nema_otvorenih_prijava">Trenutno nema otvorenih prijava</string>
+
+    <!-- Board map (Story 3.2). Croatian, formal vi. -->
+    <string name="ploca_fab_prijavi">Prijavi</string>
+    <string name="ploca_karta_opis">Karta prijava, %1$d oznaka</string>
+    <string name="ploca_lokacija_odbijena">Bez lokacije karta se otvara na centru Osijeka. Prijave su i dalje prikazane.</string>
+    <string name="ploca_omoguci_lokaciju">Omogući lokaciju</string>
+    <string name="ploca_legenda_zatvori">Zatvori legendu</string>
+
+    <!-- Location picker (Story 2.1). Croatian, formal vi. -->
+    <string name="lokacija_naslov">Odaberite lokaciju</string>
+    <string name="lokacija_postavi">Postavi lokaciju</string>
+    <string name="lokacija_trenutna">Trenutna lokacija</string>
+    <string name="lokacija_oznaka_hint">Oznaka lokacije (neobavezno)</string>
+    <string name="lokacija_bez_dozvole">Bez lokacije karta se otvara na centru Osijeka. Oznaku možete postaviti ručno.</string>
+
+    <!-- Photo capture/gallery control (Story 2.2). Croatian, formal vi. -->
+    <string name="fotografija_greska_kamera">Kamera nije dostupna. Odaberite fotografiju iz galerije.</string>
+    <string name="fotografija_greska_datoteka">Fotografiju nije moguće obraditi. Pokušajte ponovno ili odaberite drugu.</string>
+    <string name="fotografija_bez_dozvole">Nemate dopuštenje za kameru. Fotografiju možete odabrati iz galerije.</string>
+
+    <string name="entry_ucitavanje">Učitavanje…</string>
+    <string name="zaslon_ploca_naslov">Ploča</string>
+
+    <!-- Board: temporary "file a lost/found report" launch buttons (Stories 2.3,
+         2.4), until Epic 3 builds the real Prijavi FAB + bottom sheet. -->
+    <string name="ploca_prijavi_izgubljeno">Prijavi izgubljeno</string>
+    <string name="ploca_prijavi_pronadeno">Prijavi pronađeno</string>
+
+    <!-- Create-report form, shared by lost (Story 2.3) and found (Story 2.4)
+         modes; several keys here (e.g. prijava_opis_prekratak, prijava_lokacija_*)
+         are reused as-is by found mode. Croatian, formal vi. -->
+    <string name="prijava_izgubljeno_naslov">Prijavi izgubljeno</string>
+    <string name="prijava_kategorija">Kategorija</string>
+    <string name="prijava_kategorija_hint">Odaberite kategoriju</string>
+    <string name="prijava_kategorija_obavezna">Odaberite kategoriju.</string>
+    <string name="prijava_opis_hint">Opišite predmet (najmanje 10 znakova)</string>
+    <string name="prijava_opis_prekratak">Unesite opis od najmanje 10 znakova.</string>
+    <string name="prijava_lokacija_naslov">Lokacija</string>
+    <string name="prijava_lokacija_nije_postavljena">Lokacija nije postavljena.</string>
+    <string name="prijava_lokacija_postavljena">Lokacija je postavljena.</string>
+    <string name="prijava_lokacija_obavezna">Postavite lokaciju.</string>
+    <string name="prijava_postavi_lokaciju">Postavi lokaciju</string>
+    <string name="prijava_fotografija_naslov">Fotografija (neobavezno)</string>
+    <string name="prijava_fotografija_opis">Priložena fotografija</string>
+    <string name="prijava_fotografiraj">Fotografiraj</string>
+    <string name="prijava_odaberi_iz_galerije">Odaberi iz galerije</string>
+    <string name="prijava_ukloni">Ukloni</string>
+    <string name="prijava_promijeni">Promijeni</string>
+    <string name="prijava_objavi">Objavi prijavu</string>
+    <string name="prijava_slanje_u_tijeku">Objava prijave u tijeku.</string>
+    <string name="prijava_uspjeh">Prijava je objavljena.</string>
+
+    <!-- Create-report form, found mode (Story 2.4). Croatian, formal vi. -->
+    <string name="prijava_pronadeno_naslov">Prijavi pronađeno</string>
+    <string name="prijava_fotografija_naslov_obavezno">Fotografija</string>
+    <string name="prijava_opis_hint_neobavezno">Opišite predmet (neobavezno)</string>
+    <string name="prijava_fotografija_obavezna">Priložite fotografiju.</string>
+
+    <!-- Category display labels (AD-16); order matches data.model.Category. -->
+    <string name="kategorija_keys">Ključevi</string>
+    <string name="kategorija_documents_id">Dokumenti / osobna iskaznica</string>
+    <string name="kategorija_wallet">Novčanik</string>
+    <string name="kategorija_phone">Telefon</string>
+    <string name="kategorija_electronics">Elektronika</string>
+    <string name="kategorija_bag">Torba</string>
+    <string name="kategorija_clothing">Odjeća</string>
+    <string name="kategorija_books_notes">Knjige / bilješke</string>
+    <string name="kategorija_umbrella">Kišobran</string>
+    <string name="kategorija_other">Ostalo</string>
+
+    <string-array name="kategorije_nazivi">
+        <item>@string/kategorija_keys</item>
+        <item>@string/kategorija_documents_id</item>
+        <item>@string/kategorija_wallet</item>
+        <item>@string/kategorija_phone</item>
+        <item>@string/kategorija_electronics</item>
+        <item>@string/kategorija_bag</item>
+        <item>@string/kategorija_clothing</item>
+        <item>@string/kategorija_books_notes</item>
+        <item>@string/kategorija_umbrella</item>
+        <item>@string/kategorija_other</item>
+    </string-array>
+
+    <!-- Generic retry affordance (Story 3.1), reusable by any inline error state. -->
+    <string name="pokusaj_ponovno">Pokušaj ponovno</string>
+
+    <!-- Report detail + immediate phone reveal (Story 3.1). Croatian, formal vi. -->
+    <string name="prijava_detalji_naslov">Detalji prijave</string>
+    <string name="prijava_ovo_je_moje">Ovo je moje</string>
+    <string name="prijava_vasa_prijava">Ovo je vaša prijava.</string>
+    <string name="prijava_nazovi">Nazovi</string>
+    <string name="prijava_broj_telefona">Broj telefona: %1$s</string>
+    <string name="prijava_nije_pronadena">Prijava nije pronađena.</string>
+    <string name="prijava_fotografija_bez_fotografije">Bez fotografije</string>
+
+    <!-- Type words (Story 3.1): capitalised display form (type line/chip) and the
+         lower-case form used inside prijava_fotografija_dinamicki_opis, matching
+         epic-3-context.md's "{kategorija}, {izgubljeno|pronađeno}, prije {vrijeme}". -->
+    <string name="prijava_tip_izgubljeno">Izgubljeno</string>
+    <string name="prijava_tip_pronadeno">Pronađeno</string>
+    <string name="prijava_tip_izgubljeno_opis">izgubljeno</string>
+    <string name="prijava_tip_pronadeno_opis">pronađeno</string>
+
+    <!-- Dynamic per-report photo content description (epic-3-context.md
+         Accessibility bullet): "{kategorija}, {izgubljeno|pronađeno}, prije {vrijeme}". -->
+    <string name="prijava_fotografija_dinamicki_opis">%1$s, %2$s, %3$s</string>
+
+    <!-- Board list view (Story 3.3). Croatian, formal vi. -->
+    <string name="ploca_toggle_karta">Karta</string>
+    <string name="ploca_toggle_popis">Popis</string>
+    <string name="ploca_udaljenost_m">%1$d m</string>
+    <string name="ploca_udaljenost_km">%1$.1f km</string>
+
+    <!-- Room mirror / offline Board read (Story 3.4). Croatian, formal vi. -->
+    <string name="zadnje_azurirano">Zadnje ažurirano: %s</string>
+
+    <!-- Followed categories screen (Story 4.1). Menu item + screen title. -->
+    <string name="pracene_kategorije">Praćene kategorije</string>
+    <string name="natrag">Natrag</string>
+
+    <!-- My reports screen (Story 4.3). Menu item + screen title + row/dialog copy. -->
+    <string name="moje_prijave">Moje prijave</string>
+    <string name="moje_prijave_prazno">Još niste objavili nijednu prijavu.</string>
+    <string name="otvoreno">Otvoreno</string>
+    <string name="zatvoreno">Zatvoreno</string>
+    <string name="zatvori">Zatvori</string>
+    <string name="zatvori_prijavu_potvrda_tekst">Želite li zatvoriti ovu prijavu?</string>
+    <string name="zatvori_prijavu_uspjeh">Prijava je zatvorena.</string>
+    <string name="zatvori_prijavu_greska">Zatvaranje prijave nije uspjelo. Pokušajte ponovno.</string>
+    <!-- Per-row "Zatvori" button content description (accessibility): category + age
+         distinguishes rows for a TalkBack user when several open reports of the same
+         category are listed (code review, second pass). -->
+    <string name="zatvori_gumb_opis">Zatvori prijavu: %1$s, %2$s</string>
+
+    <!-- Local notification for a followed category (Story 4.2). Croatian, formal vi. -->
+    <string name="obavijest_kanal_naziv">@string/pracene_kategorije</string>
+    <string name="obavijest_kanal_opis">Obavijesti o novim prijavama u praćenim kategorijama.</string>
+    <string name="obavijest_nova_prijava_naslov">Nova prijava</string>
+    <string name="obavijest_nova_prijava_tekst">Nova prijava u kategoriji koju pratite: %1$s</string>
+    <string name="ploca_obavijesti_odbijene">Bez dopuštenja nećete primati obavijesti o praćenim kategorijama.</string>
+    <string name="ploca_omoguci_obavijesti">Omogući obavijesti</string>
+
+</resources>

@@ -1,0 +1,47 @@
+rules_version = '2';
+
+// lost&Found — Firestore security rules (AD-15).
+// Committed here; deploy with:  firebase deploy --only firestore:rules
+// Every rule below carries an explicit ownership / auth check; no open test-mode grants.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Reports: any signed-in user reads; only the reporter creates/updates;
+    // an update may change only `status`, and only to `closed` (AD-5);
+    // never deleted.
+    match /reports/{reportId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+                    && request.resource.data.reporterId == request.auth.uid;
+      allow update: if isSignedIn()
+                    && resource.data.reporterId == request.auth.uid
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+                    && request.resource.data.status == 'closed';
+      allow delete: if false;
+    }
+
+    // Users: any signed-in user reads; a user creates/updates only their own
+    // document (doc id == uid); never deleted (keeps the usernames reservation
+    // from being orphaned).
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn() && userId == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // Usernames: reservation records. Create-if-absent only, with the claimed
+    // uid matching the caller; never updated or deleted (AD-18).
+    match /usernames/{username} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+                    && !exists(/databases/$(database)/documents/usernames/$(username))
+                    && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if false;
+    }
+  }
+}

@@ -1,0 +1,74 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+}
+
+android {
+    namespace 'hr.ferit.lostandfound'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'hr.ferit.lostandfound'
+        minSdk 24
+        targetSdk 36
+        versionCode 1
+        versionName '1.0'
+    }
+
+    buildTypes {
+        debug {
+            // Debug build only for the course demo: no minify, no release signing config.
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+// Secrets Gradle plugin: reads MAPS_API_KEY from local.properties and exposes it as
+// a manifest placeholder. defaultPropertiesFileName supplies an empty fallback so the
+// build passes before a real key is set.
+secrets {
+    propertiesFileName = 'local.properties'
+    defaultPropertiesFileName = 'local.defaults.properties'
+}
+
+dependencies {
+    // AndroidX UI / lifecycle
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    // Explicit (rather than relying on appcompat's transitive pull): NotificationCompat /
+    // NotificationManagerCompat for Story 4.2's local notifications.
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.11.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.11.0'
+    implementation 'androidx.biometric:biometric:1.1.0'
+
+    // Firebase — versions come from the BoM, never pinned per-artifact.
+    implementation platform('com.google.firebase:firebase-bom:34.17.0')
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-storage'
+
+    // Google Play services
+    implementation 'com.google.android.gms:play-services-maps:20.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.4.0'
+
+    // Room — read-only Board cache in later stories; the executor lands in this story.
+    implementation 'androidx.room:room-runtime:2.8.4'
+    annotationProcessor 'androidx.room:room-compiler:2.8.4'
+
+    // Unit tests — plain JVM (JUnit) plus Robolectric where a test needs a real
+    // Intent / Parcelable (LocationPickerActivity.Contract round-trip).
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.15.1'
+}

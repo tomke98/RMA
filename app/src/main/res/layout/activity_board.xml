@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Board (Story 3.2): map of every open report (AD-3), the signed-in landing
+  screen. MaterialToolbar (title zaslon_ploca_naslov, overflow menu_board:
+  "Odjava") above a full-bleed SupportMapFragment, a dismissible legend chip
+  pair, and an extended FAB "Prijavi" opening bottom_sheet_prijavi. Exactly one
+  of progress / errorGroup / emptyText overlays the map at a time, driven by
+  BoardViewModel's Resource<List<Report>>; locationRationaleGroup is
+  independent of that state — it reflects only location permission/fix status.
+
+  IDs read by BoardActivity:
+    - toolbar, map
+    - viewToggleGroup, mapToggleButton, listToggleButton, reportList (Story 3.3)
+    - offlineLabel (Story 3.4)
+    - progress
+    - errorGroup, errorText, retryButton
+    - emptyText
+    - legendGroup, legendCloseButton
+    - locationRationaleGroup, enableLocationButton
+    - notificationRationaleGroup, enableNotificationsButton (Story 4.2; stacked
+      with locationRationaleGroup under bottomRationaleContainer so both can
+      show independently without overlapping)
+    - fab
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/menu_board"
+            app:title="@string/zaslon_ploca_naslov" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/viewToggleGroup"
+            style="@style/Widget.Material3.MaterialButtonToggleGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mapToggleButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:minHeight="48dp"
+                android:text="@string/ploca_toggle_karta" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/listToggleButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="@string/ploca_toggle_popis" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <TextView
+            android:id="@+id/offlineLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:accessibilityLiveRegion="polite"
+            android:background="@color/surface"
+            android:gravity="center_horizontal"
+            android:paddingVertical="4dp"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="@color/ink_secondary"
+            android:visibility="gone"
+            tools:text="Zadnje ažurirano: prije 5 min"
+            tools:visibility="visible" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/mapContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reportList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingVertical="8dp"
+            android:visibility="gone"
+            tools:listitem="@layout/item_report_card" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:accessibilityLiveRegion="polite"
+            android:indeterminate="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/emptyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:accessibilityLiveRegion="polite"
+            android:background="@color/surface"
+            android:padding="16dp"
+            android:text="@string/nema_otvorenih_prijava"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="@color/ink_secondary"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/errorGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/surface"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/errorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:accessibilityLiveRegion="polite"
+                android:gravity="center_horizontal"
+                android:text="@string/opca_greska"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorError" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retryButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:minHeight="48dp"
+                android:text="@string/pokusaj_ponovno" />
+
+        </LinearLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/legendGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="16dp"
+            android:paddingEnd="40dp"
+            app:chipSpacingHorizontal="8dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/legendLostChip"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:text="@string/prijava_tip_izgubljeno" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/legendFoundChip"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:text="@string/prijava_tip_pronadeno" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <ImageButton
+            android:id="@+id/legendCloseButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="top|start"
+            android:layout_margin="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/ploca_legenda_zatvori"
+            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <LinearLayout
+            android:id="@+id/bottomRationaleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/notificationRationaleGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/surface"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/notificationRationaleText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/ploca_obavijesti_odbijene"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="@color/ink_secondary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/enableNotificationsButton"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="@string/ploca_omoguci_obavijesti" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/locationRationaleGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/surface"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/locationRationaleText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/ploca_lokacija_odbijena"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="@color/ink_secondary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/enableLocationButton"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="@string/ploca_omoguci_lokaciju" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:minHeight="48dp"
+        android:text="@string/ploca_fab_prijavi" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

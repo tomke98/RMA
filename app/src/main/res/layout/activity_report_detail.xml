@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Report detail + immediate phone reveal (Story 3.1). Single scrolling column:
+  full-size photo (or a neutral placeholder + category-label glyph), type,
+  category, description, location, relative age, then a phone area with three
+  mutually exclusive states (own report / not-yet-revealed / revealed), driven
+  by ReportDetailActivity from two booleans (isOwnReport, revealed). Exactly one
+  of progress / errorGroup / contentGroup is visible at a time.
+
+  IDs read by ReportDetailActivity:
+    - progress
+    - errorGroup, errorText, retryButton
+    - contentGroup, photoImage, photoGlyphText, typeChip, categoryText,
+      descriptionText, locationText, ageText
+    - ownReportText, revealButton, revealedGroup, phoneText, callButton
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/screenTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:accessibilityHeading="true"
+            android:text="@string/prijava_detalji_naslov"
+            tools:targetApi="28"
+            android:textAppearance="?attr/textAppearanceHeadlineSmall"
+            android:textColor="@color/ink_primary" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/errorGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/errorText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:accessibilityLiveRegion="polite"
+                android:gravity="center_horizontal"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorError"
+                tools:text="@string/prijava_nije_pronadena" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retryButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:minHeight="48dp"
+                android:text="@string/pokusaj_ponovno"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contentGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp">
+
+                <ImageView
+                    android:id="@+id/photoImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/surface"
+                    android:contentDescription="@string/prijava_fotografija_bez_fotografije"
+                    android:scaleType="centerCrop" />
+
+                <!-- Decorative overlay only: the semantic description (category,
+                     lost/found, age) lives on photoImage itself, set dynamically by
+                     the Activity, whether or not a real photo bitmap is showing. -->
+                <TextView
+                    android:id="@+id/photoGlyphText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:padding="16dp"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="@color/ink_secondary"
+                    android:visibility="gone"
+                    tools:text="Ključevi"
+                    tools:visibility="visible" />
+
+            </FrameLayout>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/typeChip"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:clickable="false"
+                android:focusable="false"
+                tools:text="@string/prijava_tip_izgubljeno" />
+
+            <TextView
+                android:id="@+id/categoryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="@color/ink_primary"
+                tools:text="Ključevi" />
+
+            <TextView
+                android:id="@+id/descriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="@color/ink_primary"
+                tools:text="Opis prijave." />
+
+            <TextView
+                android:id="@+id/locationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="@color/ink_secondary"
+                tools:text="Kod fontane" />
+
+            <TextView
+                android:id="@+id/ageText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="@color/ink_secondary"
+                tools:text="prije 2 sata" />
+
+            <TextView
+                android:id="@+id/ownReportText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/prijava_vasa_prijava"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="@color/ink_secondary"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/revealButton"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:minHeight="48dp"
+                android:text="@string/prijava_ovo_je_moje"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/revealedGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:accessibilityLiveRegion="polite"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/phoneText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="@color/ink_primary"
+                    tools:text="Broj telefona: 099 123 4567" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/callButton"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:minHeight="48dp"
+                    android:text="@string/prijava_nazovi" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

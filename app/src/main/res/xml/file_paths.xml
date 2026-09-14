@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- FileProvider paths. Camera capture (Epic 2) writes JPEGs into cache/images/. -->
+<paths>
+    <cache-path
+        name="captured_images"
+        path="images/" />
+    <files-path
+        name="app_images"
+        path="images/" />
+</paths>

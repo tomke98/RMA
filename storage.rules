@@ -1,0 +1,21 @@
+rules_version = '2';
+
+// lost&Found — Cloud Storage security rules (AD-15).
+// Committed here; deploy with:  firebase deploy --only storage
+// Every rule below carries an explicit auth / size / content-type check; no open test-mode grants.
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Report item photos, keyed by the report's Firestore auto-id (AD-7).
+    // Any signed-in user reads. Create/update require auth, an image content type,
+    // and a size under 5 MiB. Clients never delete report photos (AD-7).
+    match /report_photos/{fileName} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null
+                            && request.resource.size < 5 * 1024 * 1024
+                            && request.resource.contentType.matches('image/.*');
+      allow delete: if false;
+    }
+  }
+}

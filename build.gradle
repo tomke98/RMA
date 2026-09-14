@@ -1,0 +1,7 @@
+// Root build script. Plugin versions are pinned in settings.gradle (pluginManagement).
+// Each plugin is declared here with `apply false` so the :app module can apply it.
+plugins {
+    id 'com.android.application' apply false
+    id 'com.google.gms.google-services' apply false
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin' apply false
+}

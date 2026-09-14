@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Board TopAppBar overflow (Story 3.2). Praćene kategorije added in Story 4.1;
+     Moje prijave added in Story 4.3. -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_followed_categories"
+        android:title="@string/pracene_kategorije"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_my_reports"
+        android:title="@string/moje_prijave"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sign_out"
+        android:title="@string/odjava"
+        android:showAsAction="never" />
+
+</menu>

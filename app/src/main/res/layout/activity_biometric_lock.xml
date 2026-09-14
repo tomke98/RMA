@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Biometric session-lock screen (Story 1.4, AD-12). Single centered column, 16 dp
+  margins, light theme, touch targets >= 48 dp. The system BiometricPrompt is drawn
+  by the OS over this screen; this layout is what remains after a cancel or a
+  terminal error.
+
+  IDs consumed by BiometricLockActivity:
+    - wordmark          the "lost&Found" wordmark, marked as an accessibility heading
+    - lockMessage       the subtitle TextView; the Activity swaps in errString on a
+                        recoverable error and resets it to biometrija_podnaslov when
+                        the prompt (re)fires
+    - retryButton       tonal "Pokušajte ponovno"; visibility="gone" until a
+                        recoverable error, hidden again on ERROR_LOCKOUT_PERMANENT
+    - usePasswordButton text "Koristi lozinku"; always visible — the guaranteed way out
+-->
+<!--
+  fillViewport + wrap_content on the column keeps the content vertically centred on
+  tall screens while still scrolling in landscape or at a large font scale, so the
+  always-visible "Koristi lozinku" button (the only way off this screen) can never
+  be clipped. Matches activity_sign_in.xml.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Marked as an accessibility heading from onCreate() via ViewCompat, which
+             covers minSdk 24-27 (the android:accessibilityHeading attribute is API 28+). -->
+        <TextView
+            android:id="@+id/wordmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAppearance="?attr/textAppearanceDisplaySmall"
+            android:textColor="@color/ink_primary" />
+
+        <TextView
+            android:id="@+id/lockMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/biometrija_podnaslov"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="@color/ink_secondary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/retryButton"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:minHeight="48dp"
+            android:text="@string/biometrija_pokusaj_ponovno"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/usePasswordButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            android:text="@string/koristi_lozinku" />
+
+    </LinearLayout>
+
+</ScrollView>

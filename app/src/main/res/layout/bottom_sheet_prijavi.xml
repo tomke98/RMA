@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  "Prijavi" bottom sheet (Story 3.2): the FAB's action list, replacing the
+  removed temporary reportLostButton/reportFoundButton on BoardActivity. Two
+  full-width rows, each launching CreateReportActivity exactly as those
+  buttons did.
+
+  IDs read by BoardActivity: reportLostRow, reportFoundRow
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="24dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/reportLostRow"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:gravity="start|center_vertical"
+        android:minHeight="56dp"
+        android:text="@string/ploca_prijavi_izgubljeno" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/reportFoundRow"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:gravity="start|center_vertical"
+        android:minHeight="56dp"
+        android:text="@string/ploca_prijavi_pronadeno" />
+
+</LinearLayout>
